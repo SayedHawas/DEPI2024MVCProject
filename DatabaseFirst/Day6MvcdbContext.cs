@@ -21,6 +21,8 @@ public partial class Day6MvcdbContext : DbContext
 
     public virtual DbSet<Employee> Employees { get; set; }
 
+    public virtual DbSet<Product> Products { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=.\\demos;Initial Catalog=Day6MVCDB;Integrated Security=True;Trust Server Certificate=True");
@@ -56,6 +58,13 @@ public partial class Day6MvcdbContext : DbContext
             entity.HasOne(d => d.Depart).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.DepartId)
                 .HasConstraintName("FK_Employees_Departments");
+        });
+
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.Property(e => e.Photo).HasMaxLength(255);
+            entity.Property(e => e.Price).HasColumnType("decimal(9, 2)");
+            entity.Property(e => e.ProductName).HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);
