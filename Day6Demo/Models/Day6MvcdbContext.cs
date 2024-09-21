@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Day6Demo.ViewModels;
 
 namespace Day6Demo.Models
 {
@@ -15,6 +14,7 @@ namespace Day6Demo.Models
         {
         }
 
+        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
 
         public virtual DbSet<Employee> Employees { get; set; }
@@ -25,6 +25,13 @@ namespace Day6Demo.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Account>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Password).HasMaxLength(50);
+                entity.Property(e => e.Username).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Department>(entity =>
             {
                 entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
@@ -54,6 +61,6 @@ namespace Day6Demo.Models
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-public DbSet<Day6Demo.ViewModels.EmployeeViewModel> EmployeeViewModel { get; set; } = default!;
+        public DbSet<Day6Demo.ViewModels.EmployeeViewModel> EmployeeViewModel { get; set; } = default!;
     }
 }
