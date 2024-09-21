@@ -1,0 +1,43 @@
+﻿@model Day6Demo.Models.Department
+
+@{
+    ViewData["Title"] = "Create Employee";
+}
+
+<h1>Create</h1>
+<h2> Session  Hi : @Context.Session.GetString("name")</h2>
+<h4>Department</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <br />
+        <form asp-action="Create" >
+            <br />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DepartmentName" class="control-label"></label>
+                <input asp-for="DepartmentName" class="form-control" />
+                <span asp-validation-for="DepartmentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmnetManager" class="control-label"></label>
+                <input asp-for="DepartmnetManager" class="form-control" />
+                <span asp-validation-for="DepartmnetManager" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-dark">Back to List</a>
+</div>
+
+@* Validation Client Side  JavaScript Browser *@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

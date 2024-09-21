@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+ *@
+<h2> Session  Hi : @Context.Session.GetString("name")</h2>
+<h3>Application Name :  @TempData["Name"] </h3>
+<h4> cookies : @ViewBag.MyCookie</h4>
+
+<h4> Query string : @Context.Request.Query["name"]</h4>
+
+<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="200">
+    <img src="~/assets/img/hero-img.png" class="img-fluid animated" alt="">
+</div>
