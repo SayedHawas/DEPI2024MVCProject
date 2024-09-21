@@ -64,8 +64,11 @@ namespace Day6Demo.Controllers
         }
 
         // GET: Departments/Edit/5
-        public IActionResult Edit(int? id)
+        //public IActionResult Edit(int? id)
+        public IActionResult Edit()
         {
+            //HttpContext -->  
+            int? id = int.Parse(Request.RouteValues["id"].ToString());
             if (id == null)
             {
                 return BadRequest();
@@ -84,9 +87,15 @@ namespace Day6Demo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Department department)
+        // public IActionResult Edit(int id, Department department)
+        public IActionResult Edit(int id)
         {
-            if (id != department.DepartmentId)
+            var departmentId = int.Parse(Request.Form["DepartmentId"].ToString());
+            var departmentName = Request.Form["DepartmentName"].ToString();
+            var departmnetManager = Request.Form["DepartmnetManager"].ToString();
+
+            var newDepartment = new Department() { DepartmentId = departmentId, DepartmentName = departmentName, DepartmnetManager = departmnetManager };
+            if (id != newDepartment.DepartmentId)
             {
                 return BadRequest();
             }
@@ -95,12 +104,12 @@ namespace Day6Demo.Controllers
             {
                 try
                 {
-                    _context.Departments.Update(department);
+                    _context.Departments.Update(newDepartment);
                     _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartmentExists(department.DepartmentId))
+                    if (!DepartmentExists(newDepartment.DepartmentId))
                     {
                         return NotFound();
                     }
@@ -111,7 +120,7 @@ namespace Day6Demo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(newDepartment);
         }
 
         // GET: Departments/Delete/5
