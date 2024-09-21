@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Day6Demo.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace Day6Demo.Controllers
 {
@@ -121,6 +123,51 @@ namespace Day6Demo.Controllers
             int? counter = HttpContext.Session.GetInt32("Counter");
             return Content($"Name {name} & Counter {counter}  ");
         }
+
+        //Binding 
+        //Demos/BindingPrimitive?id=5&name=Ahmed&Courses[1]=SQL&Courses[0]=MVCCore
+        public IActionResult BindingPrimitive(int id, string Name, string[] Courses)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Courses.Length > 0)
+            {
+                for (int i = 0; i < Courses.Length; i++)
+                {
+                    sb.Append($"Data:{id} {Name} {Courses[i]} \n");
+                }
+            }
+            return Content($"{sb.ToString()}");
+        }
+
+        //Binding Collection
+        //Demos/BindingCollection?id=6&name=Ahmed&Mark[1]=80&Mark[2]=90
+        public IActionResult BindingCollection(int id, string Name, Dictionary<int, int> Mark)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Mark.Count > 0)
+            {
+                for (int i = 0; i < Mark.Count; i++)
+                {
+                    int value = 0;
+                    Mark.TryGetValue(i, out value);
+                    sb.Append($"Data:{id} {Name} {value}  \n");
+                }
+            }
+            return Content($"{sb.ToString()}");
+        }
+
+        //Demos/BindingComplex?departmentId=8&departmentName=HR&departmnetManager=AhmedAli&Employees[0].EmployeeName=AmrAhmed
+        public IActionResult BindingComplex(int departmentId, string departmentName, string departmnetManager, Department department)
+        {
+            return Content($"id {department.DepartmentId} Name {department.DepartmentName} Manager: {department.DepartmnetManager} ");
+        }
+
+        //Demos/BindingComplexTwo?departmentId=8&departmentName=HR&departmnetManager=AhmedAli&Employees[0].EmployeeName=AmrAhmed
+        public IActionResult BindingComplexTwo([Bind(include: "DepartmentId,DepartmentName")] Department department)
+        {
+            return Content($"id {department.DepartmentId} Name {department.DepartmentName} Manager: {department.DepartmnetManager} ");
+        }
+
 
     }
 }
