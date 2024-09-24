@@ -18,8 +18,12 @@ namespace Day6Demo.Models
             if (!decimal.TryParse(salary, out decimal salaryDecimal))
             {
                 bindingContext.ModelState.AddModelError("Salary", "Invalid salary format.");
-                bindingContext.Result = ModelBindingResult.Failed();
-                return;
+                //bindingContext.Result = ModelBindingResult.Failed();
+                //return;
+            }
+            if (int.Parse(departId) == 0)
+            {
+                bindingContext.ModelState.AddModelError("DepartId", "Must Select the Department");
             }
             //create New Salary 
             decimal newSalary = Convert.ToDecimal(salary) + (Convert.ToDecimal(salary) * .1m);

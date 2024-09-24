@@ -57,6 +57,7 @@ namespace Day6Demo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([ModelBinder(typeof(EmployeeBinder))] Employee employee)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Employees.Add(employee);

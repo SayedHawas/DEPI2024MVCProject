@@ -184,7 +184,23 @@ namespace Day6Demo.Controllers
 
         public async Task<IActionResult> Gallery()
         {
-            return View(await _context.Products.ToListAsync());
+            //return View(await _context.Products.ToListAsync());
+            var listProduct = await _context.Products.ToListAsync();
+            List<Product> products = new List<Product>();
+            foreach (var item in listProduct)
+            {
+                if (System.IO.File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products", item.Photo)))
+                {
+                    products.Add(item);
+                }
+                else
+                {
+                    item.Photo = Path.Combine(Directory.GetCurrentDirectory(), "/default.png");
+                    products.Add(item);
+                }
+            }
+            return View(products.ToList());
+
         }
 
         public async Task<IActionResult> Card(int? id)
