@@ -227,5 +227,15 @@ namespace Day6Demo.Controllers
 
         }
 
+        public IActionResult CheckPrice(decimal Price, string ProductName)
+        {
+            if ((Price < 100000)! & (ProductName.ToLower().Contains("car")))
+            {
+                return Json(true);
+            }
+            return Json(false);
+
+        }
+
     }
 }
