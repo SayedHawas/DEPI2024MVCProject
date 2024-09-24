@@ -168,6 +168,17 @@ namespace Day6Demo.Controllers
             return Content($"id {department.DepartmentId} Name {department.DepartmentName} Manager: {department.DepartmnetManager} ");
         }
 
+        //Action for test 
+        public IActionResult TestAction()
+        {
+            ViewData["Title"] = "Welcome in Test With MVC ";
+            return View();
+        }
+        public int divi(int x, int y)
+        {
+            return x / y;
+        }
+
 
     }
 }
