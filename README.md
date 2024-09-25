@@ -33,7 +33,9 @@
 7- Keeping Data Annotations.
 
 8- Custom Validation .
+
       *-ValidationAttribute.
+
       *-Remote (Ajax). 
 
 
