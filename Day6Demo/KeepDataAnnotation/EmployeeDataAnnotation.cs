@@ -1,6 +1,5 @@
 ﻿using Day6Demo.Validations;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,7 +16,7 @@ namespace Day6Demo.Models
         //Add Validation 
         [Key]
         public int EmployeeId { get; set; }
-        [DisplayName("Full Name")]
+        [Display(Name = "Full Name")]
         [Required(ErrorMessage = "Please Enter Your Name ")]
         [MaxLength(50, ErrorMessage = "Must Enter Name Less than 50 letters")]
         [IsExist(MyErrorMessage = "Name is Already Exist")]

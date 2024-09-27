@@ -143,7 +143,6 @@ namespace Day6Demo.Controllers
             }
             return View(product);
         }
-
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -161,7 +160,6 @@ namespace Day6Demo.Controllers
 
             return View(product);
         }
-
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -176,12 +174,10 @@ namespace Day6Demo.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);
         }
-
         public async Task<IActionResult> Gallery()
         {
             //return View(await _context.Products.ToListAsync());
@@ -202,7 +198,6 @@ namespace Day6Demo.Controllers
             return View(products.ToList());
 
         }
-
         public async Task<IActionResult> Card(int? id)
         {
             if (id == null)
@@ -226,7 +221,6 @@ namespace Day6Demo.Controllers
             }
 
         }
-
         public IActionResult CheckPrice(decimal Price, string ProductName)
         {
             if ((Price < 100000)! & (ProductName.ToLower().Contains("car")))
@@ -236,6 +230,22 @@ namespace Day6Demo.Controllers
             return Json(false);
 
         }
+
+        // Products/CardAsPartialView/2
+        //Partial View 
+        public IActionResult CardAsPartialView(int id)
+        {
+            var Product = _context.Products.FirstOrDefault(p => p.ProductId == id);
+            return PartialView("_ProductCardPartial", Product);
+        }
+        // Using JSON
+        //Products/CardAsJson/2
+        public IActionResult CardAsJson(int id)
+        {
+            var Product = _context.Products.FirstOrDefault(p => p.ProductId == id);
+            return Json(Product);
+        }
+
 
     }
 }

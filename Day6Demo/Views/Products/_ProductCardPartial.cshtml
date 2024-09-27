@@ -1,0 +1,15 @@
+﻿@model Product
+ 
+<!-- Display the product photo -->
+@*  <img src="@Url.Content("~/images/products/" + Model.Photo)" class="card-img-top" alt="@Model.ProductName" /> *@
+<img src="@Url.Content("~/images/products/" + (Model.Photo ==""?"default.png":Model.Photo))" class="card-img-top" alt="@Model.ProductName" />
+<!-- Display product details -->
+<div class="card-body">
+    <h5 class="card-title">@Model.ProductName</h5>
+    <p class="card-text">Price: $@Model.Price</p>
+</div>
+
+<!-- Add a button to view details -->
+<div class="card-footer">
+    <a href="@Url.Action("Details", "Products", new { id = Model.ProductId })" class="btn btn-primary">View Details</a>
+</div>

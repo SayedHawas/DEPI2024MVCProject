@@ -159,5 +159,19 @@ namespace Day6Demo.Controllers
         {
             return _context.Departments.Any(e => e.DepartmentId == id);
         }
+
+
+        // Show Lists For Department And Employees Cascade List 
+        public IActionResult ShowDepartments()
+        {
+            List<Department> DepartmentList = _context.Departments.ToList();
+            return View(DepartmentList);
+        }
+        //Departments/ShowEmployees?departmentId=
+        public IActionResult ShowEmployees(int departmentId)
+        {
+            List<Employee> EmployeeList = _context.Employees.Where(e => e.DepartId == departmentId).ToList();
+            return Json(EmployeeList);
+        }
     }
 }
