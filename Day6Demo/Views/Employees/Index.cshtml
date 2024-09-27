@@ -4,10 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1> <i class="fa fa-list"></i>  Index</h1>
+ @* DOM DOCUMNET OBJECT MODEL *@
+<div id="UpdatePanel"></div>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
+    <a asp-action="Create" class="btn btn-success"><i class="fa fa-save"></i> Create New</a>
 </p>
 <br />
 <table class="table">
@@ -56,12 +58,40 @@
                 @Html.DisplayFor(modelItem => item.Depart.DepartmentName)
             </td>
             <td>
-                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.EmployeeId">Edit</a> |
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.EmployeeId"> <i class="fa fa-edit"></i> Edit</a> |
                     <a asp-action="Details" class="btn btn-secondary" asp-route-id="@item.EmployeeId">Details</a> |
                     <a asp-action="ShowEmployee" class="btn btn-success" asp-route-id="@item.EmployeeId">Show</a>|
-                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.EmployeeId">Delete</a>
+                     @* Add JavaScript  *@
+                    <a href="#"  class="btn btn-success" onclick="GetEmployeeDetails(@item.EmployeeId)">Show Details</a>|
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.EmployeeId"><i class="fa fa-remove"></i>Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+
+@section MySection{
+      @* JavaScript & JQuery To Access the Ajax
+         Ajax Call
+            1- URL   3
+            2- Parameters 
+            3- Data 
+      *@
+    <script>
+        function GetEmployeeDetails(id) {
+            event.preventDefault();
+            //console.log(id);
+            $.ajax({
+                url: "/Employees/ShowEmployeeDetails/"+id,
+                //data: {"id":id},
+                success: function (result) {
+                    //$("#div1").html(result);
+                    //console.log(result);
+                    document.getElementById("UpdatePanel").innerHTML = result;
+                }
+            });
+        }
+
+    </script>
+}

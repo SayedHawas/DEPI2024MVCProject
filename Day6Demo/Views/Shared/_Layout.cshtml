@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Day6Demo.styles.css" asp-append-version="true" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+
 </head>
 <body>
     <header>
@@ -32,8 +35,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
                         </li>
                         <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                            @RenderSection("Menu", required: false)  @* required*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area=""> Hi : @Context.Session.GetString("User")</a>
                         </li>
@@ -48,15 +55,21 @@
             @RenderBody()
         </main>
     </div>
+    @* @Html.Partial("_FooterPartial") *@
+    @* @Html.Partial("_FooterPartial") *@
+   @*  @await Html.PartialAsync("_FooterPartial") *@
+@* 
+    @{
+        Html.RenderPartial("_FooterPartial");
+    } *@
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Day6Demo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <partial name="_FooterPartial" />
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    @RenderSection("MySection",required:false)
 </body>
 </html>

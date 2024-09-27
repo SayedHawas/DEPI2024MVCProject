@@ -55,8 +55,9 @@ namespace Day6Demo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Employee employee)
+        public IActionResult Create([ModelBinder(typeof(EmployeeBinder))] Employee employee)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Employees.Add(employee);
@@ -173,6 +174,14 @@ namespace Day6Demo.Controllers
             };
 
             return View(viewModel);
+        }
+
+        //Employees/ShowEmployeeDetails/3
+        public IActionResult ShowEmployeeDetails(int? id)
+        {
+            //var emp = _context.Employees.FirstOrDefault(e => e.EmployeeId == id);
+            var emp = _context.Employees.Include(d => d.Depart).FirstOrDefault(e => e.EmployeeId == id);
+            return PartialView("ShowEmployeeDetails", emp);
         }
     }
 }

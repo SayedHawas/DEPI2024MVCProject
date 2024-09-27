@@ -1,0 +1,44 @@
+﻿@model List<Department>
+@{
+    ViewData["Title"] = "ShowDepartments";
+    SelectList Departments = new SelectList(Model, "DepartmentId", "DepartmentName");
+}
+
+<h1>ShowDepartments</h1>
+<label> Department Name </label>
+<select name="departmentId" id="departmentId" class="form-control" onchange="GetEmployeeList()" asp-items="Departments">
+    @* @foreach (var x in Model)
+    {
+         <option value=@x.DepartmentId> @x.DepartmentName </option>
+    
+    }*@
+</select>
+<br />
+<label> Employee Name </label>
+@*DOM*@
+<select name="employeesList" id="employeesList" class="form-control">
+  
+</select>
+
+@section MySection{
+<script>
+    
+    function GetEmployeeList() {
+            var id = document.getElementById("departmentId").value;
+            //to clean List 
+        document.getElementById("employeesList").innerHTML = "";
+        //console.log(id);
+        $.ajax({
+                url: "/Departments/ShowEmployees?departmentId="+ id,
+                //url: "/Departments/ShowEmployees",
+                //data: { "departmentId":id},
+                success: function (result) {
+                    console.log(result);
+                    for (let emp of result) {
+                        document.getElementById("employeesList").innerHTML += "<option value='" + emp.employeeId + "'>" + emp.employeeName + " </option>"
+                    }
+                }
+        });   
+    }
+</script>
+}
