@@ -38,4 +38,16 @@
 
       *-Remote (Ajax). 
 
+### Day 10 MVC 
+------------------
+1- **PARTIAL VIEW**.
 
+2- Create the Partial View with HTML Only.
+
+3- Create Partial View with Model  (Strongly Type).
+
+4- using Ajax in Partial View
+
+5- Cascading DropDownList Using Ajax With JSON
+
+6- How to Add Client Side Libaray like fontawesome ?
