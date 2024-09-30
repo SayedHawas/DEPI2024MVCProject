@@ -51,3 +51,23 @@
 5- Cascading DropDownList Using Ajax With JSON
 
 6- How to Add Client Side Libaray like fontawesome ?
+
+### Day 11 MVC 
+------------------
+1- **SOLID Principles**.
+
+2- Dependency-Injection (DI = Separate the Concerns )
+
+3- Repository
+
+4- Repository Generic <T>
+
+5- IOC (Inversion Of Control) Container -  Services Provider 
+
+6- Add Service To Container
+
+7- Services lifetimes
+
+8- Using Pagintion With MVC Core Using Ajax Request
+
+9- Routing in MVC Core
