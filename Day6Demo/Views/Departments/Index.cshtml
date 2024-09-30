@@ -18,10 +18,10 @@
 @{
     if (TempData.ContainsKey("Message"))
     {
-        <h1>@TempData["Message"]</h1>
+            <h1>@TempData["Message"]</h1>
     }
 }
-<table class="table">
+@* <table class="table">
     <thead>
         <tr>
             <th>
@@ -34,20 +34,48 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmnetManager)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmnetManager)
+                </td>
+                <td>
                     <a asp-action="Edit" asp-route-id="@item.DepartmentId" class="btn btn-secondary">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.DepartmentId" class="btn btn-dark">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.DepartmentId" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
-</table>
+</table> *@
+<div id="departmentListContainer">
+</div>
+
+  @section MySection{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Initial page load
+            loadPage(1);
+        });
+
+        function loadPage(pageNumber) {
+            $.ajax({
+                // url: "Departments/GetDepartment?pageNumber=" + pageNumber;
+                url: '@Url.Action("GetDepartment", "Departments")',
+                type: 'GET',
+                data: { pageNumber: pageNumber },
+                success: function (result) {
+                    $('#departmentListContainer').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error occurred:', error);
+                }
+            });
+        }
+    </script>
+    }

@@ -1,4 +1,6 @@
 using Day6Demo.Models;
+using Day6Demo.Repositories.Impelements;
+using Day6Demo.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Day6Demo
@@ -10,15 +12,17 @@ namespace Day6Demo
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             //builder.Services.AddRazorPages().AddSessionStateTempDataProvider();
-
             builder.Services.AddControllersWithViews();//.AddSessionStateTempDataProvider();
-
             builder.Services.AddSession(config =>
             {
                 config.IdleTimeout = TimeSpan.FromMinutes(20);
             });
+            //Custom Services
+            //
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
 
             //Container DB SQL server 
             builder.Services.AddDbContext<Day6MvcdbContext>(options =>
@@ -42,9 +46,24 @@ namespace Day6Demo
 
             app.UseSession();
 
+            //app.MapControllerRoute(
+            //  name: "Route1",
+            //  pattern: "demo/{id:range(10,50):int}/{name:alpha?}",
+            //  new
+            //  {
+            //      controller = "Demos",
+            //      action = "DemoRouting"
+            //  });
+
+            //app.MapControllerRoute(
+            //    name: "Route2",
+            //    pattern: "{controller=Products}/{action=Index}");
+
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=ShowWebSite}/{id?}");
+                pattern: "{controller=Home}/{action=ShowWebSite}/{id:int?}");
+
 
             #region Custom Middle-Ware
             //app.Use(async (HttpContext, next) =>
