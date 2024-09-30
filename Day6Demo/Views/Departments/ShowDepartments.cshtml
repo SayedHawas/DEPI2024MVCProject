@@ -29,7 +29,7 @@
         document.getElementById("employeesList").innerHTML = "";
         //console.log(id);
         $.ajax({
-                url: "/Departments/ShowEmployees?departmentId="+ id,
+                url: "/Employees/ShowEmployees?departmentId="+ id,
                 //url: "/Departments/ShowEmployees",
                 //data: { "departmentId":id},
                 success: function (result) {
