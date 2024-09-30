@@ -1,0 +1,11 @@
+﻿@using Day6Demo.Repositories.Interfaces
+@inject IDepartmentRepository departRepo
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<h1> Life Time from CTOR : @ViewBag.life</h1>
+<h1> Life Time from View : @departRepo.lifetime</h1>
+

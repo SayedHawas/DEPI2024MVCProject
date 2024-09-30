@@ -179,6 +179,20 @@ namespace Day6Demo.Controllers
             return x / y;
         }
 
+        //Routing 
+        //Demos/DemoRouting/5/?name=Ahmed
+        public IActionResult DemoRouting(int id, string name)
+        {
+            return Content($"id {id} name {name}");
+        }
+
+        //Demos/RouteCustom?name=Ahmed
+        //[Route("route/{name:alpha}")]
+        [HttpGet("route/{name:alpha}")]
+        public IActionResult RouteCustom(string name)
+        {
+            return Content(name);
+        }
 
     }
 }
