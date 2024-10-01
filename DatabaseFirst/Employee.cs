@@ -17,7 +17,7 @@ public partial class Employee
 
     public string? Email { get; set; }
 
-    public int? DepartId { get; set; }
+    public int? Depart_ID { get; set; }
 
     public virtual Department? Depart { get; set; }
 }

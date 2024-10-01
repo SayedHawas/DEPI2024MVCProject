@@ -1,6 +1,8 @@
+using Day6Demo.CustomFilters;
 using Day6Demo.Models;
 using Day6Demo.Repositories.Impelements;
 using Day6Demo.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Day6Demo
@@ -12,8 +14,21 @@ namespace Day6Demo
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<Day6MvcdbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<Day6MvcdbContext>();
+
             //builder.Services.AddRazorPages().AddSessionStateTempDataProvider();
-            builder.Services.AddControllersWithViews();//.AddSessionStateTempDataProvider();
+
+            builder.Services.AddControllersWithViews(
+                 option => option.Filters.Add(new CustomActionFilter())
+             );
+
+            //.AddSessionStateTempDataProvider();
             builder.Services.AddSession(config =>
             {
                 config.IdleTimeout = TimeSpan.FromMinutes(20);
@@ -22,13 +37,18 @@ namespace Day6Demo
             //
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option =>
+            {
+                option.Password.RequireUppercase = false;
+                option.Password.RequiredLength = 7;
 
+            }).AddEntityFrameworkStores<Day6MvcdbContext>();
 
             //Container DB SQL server 
-            builder.Services.AddDbContext<Day6MvcdbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
-            });
+            //builder.Services.AddDbContext<Day6MvcdbContext>(options =>
+            //{
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
+            //});
 
 
             var app = builder.Build();
@@ -38,10 +58,13 @@ namespace Day6Demo
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            //Custom Error Page 
+
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();

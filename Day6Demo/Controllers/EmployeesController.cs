@@ -20,6 +20,7 @@ namespace Day6Demo.Controllers
             _departmentRepository = departmentRepository;
         }
         // GET: Employees
+        [ResponseCache(Duration = 100)]
         public IActionResult Index()
         {
             //var day6MvcdbContext = _context.Employees.Include(e => e.Depart);
@@ -49,8 +50,8 @@ namespace Day6Demo.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            //ViewData["DepartId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
-            ViewData["DepartId"] = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName");
+            //ViewData["Depart_ID"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
+            ViewData["Depart_ID"] = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName");
             return View();
         }
         // POST: Employees/Create
@@ -68,8 +69,8 @@ namespace Day6Demo.Controllers
                 _repository.Create(employee);
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["DepartId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.DepartId);
-            ViewData["DepartId"] = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName", employee.DepartId);
+            //ViewData["Depart_ID"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.Depart_ID);
+            ViewData["Depart_ID"] = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName", employee.Depart_ID);
             return View(employee);
         }
         // GET: Employees/Edit/5
@@ -84,8 +85,8 @@ namespace Day6Demo.Controllers
             {
                 return NotFound();
             }
-            //ViewData["DepartId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.DepartId);
-            ViewData["DepartId"] = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName", employee.DepartId);
+            //ViewData["Depart_ID"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.Depart_ID);
+            ViewData["Depart_ID"] = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName", employee.Depart_ID);
             return View(employee);
         }
         // POST: Employees/Edit/5
@@ -120,8 +121,8 @@ namespace Day6Demo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["DepartId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.DepartId);
-            ViewData["DepartId"] = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName", employee.DepartId);
+            //ViewData["Depart_ID"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.Depart_ID);
+            ViewData["Depart_ID"] = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName", employee.Depart_ID);
             return View(employee);
         }
         // GET: Employees/Delete/5
@@ -189,7 +190,7 @@ namespace Day6Demo.Controllers
         //Departments/ShowEmployees?departmentId=
         public IActionResult ShowEmployees(int departmentId)
         {
-            //List<Employee> EmployeeList = _context.Employees.Where(e => e.DepartId == departmentId).ToList();
+            //List<Employee> EmployeeList = _context.Employees.Where(e => e.Depart_ID == departmentId).ToList();
             List<Employee> EmployeeList = _repository.GetEmployeesByDepartment(departmentId).ToList();
             return Json(EmployeeList);
         }

@@ -47,7 +47,7 @@ public partial class Day6MvcdbContext : DbContext
         {
             entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
             entity.Property(e => e.Address).HasMaxLength(200);
-            entity.Property(e => e.DepartId).HasColumnName("Depart_ID");
+            entity.Property(e => e.Depart_ID).HasColumnName("Depart_ID");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -56,7 +56,7 @@ public partial class Day6MvcdbContext : DbContext
             entity.Property(e => e.Salary).HasColumnType("decimal(9, 2)");
 
             entity.HasOne(d => d.Depart).WithMany(p => p.Employees)
-                .HasForeignKey(d => d.DepartId)
+                .HasForeignKey(d => d.Depart_ID)
                 .HasConstraintName("FK_Employees_Departments");
         });
 
