@@ -12,7 +12,7 @@ namespace Day6Demo.Models
             var salary = bindingContext.HttpContext.Request.Form["Salary"];
             var address = bindingContext.HttpContext.Request.Form["Address"];
             var email = bindingContext.HttpContext.Request.Form["Email"];
-            var departId = bindingContext.HttpContext.Request.Form["DepartId"];
+            var Depart_ID = bindingContext.HttpContext.Request.Form["Depart_ID"];
 
             // Validate and convert salary
             if (!decimal.TryParse(salary, out decimal salaryDecimal))
@@ -21,9 +21,9 @@ namespace Day6Demo.Models
                 //bindingContext.Result = ModelBindingResult.Failed();
                 //return;
             }
-            if (int.Parse(departId) == 0)
+            if (int.Parse(Depart_ID) == 0)
             {
-                bindingContext.ModelState.AddModelError("DepartId", "Must Select the Department");
+                bindingContext.ModelState.AddModelError("Depart_ID", "Must Select the Department");
             }
             //create New Salary 
             decimal newSalary = Convert.ToDecimal(salary) + (Convert.ToDecimal(salary) * .1m);
@@ -36,7 +36,7 @@ namespace Day6Demo.Models
                 Salary = newSalary,
                 Address = address,
                 Email = email,
-                DepartId = int.Parse(departId)
+                Depart_ID = int.Parse(Depart_ID)
             };
             // Set the result as successful and pass the employee object
             bindingContext.Result = ModelBindingResult.Success(employee);

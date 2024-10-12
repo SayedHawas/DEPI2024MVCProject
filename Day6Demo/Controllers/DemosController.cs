@@ -4,6 +4,8 @@ using System.Text;
 
 namespace Day6Demo.Controllers
 {
+    //[Authorize]
+    //[CustomActionFilter]
     public class DemosController : Controller
     {
         public IActionResult Index()
@@ -193,6 +195,13 @@ namespace Day6Demo.Controllers
         {
             return Content(name);
         }
-
+        // Call filter 
+        //demos/filtertest?name=ahmedAli
+        //[Authorize]
+        //[CustomActionFilter]
+        public ActionResult FilterTest(string name)
+        {
+            return Content($" name : {name}");
+        }
     }
 }

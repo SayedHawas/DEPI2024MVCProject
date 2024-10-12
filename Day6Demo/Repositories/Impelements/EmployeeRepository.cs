@@ -47,7 +47,7 @@ namespace Day6Demo.Repositories.Impelements
 
         public IEnumerable<Employee> GetEmployeesByDepartment(int departmentID)
         {
-            return _context.Employees.Where(e => e.DepartId == departmentID);
+            return _context.Employees.Where(e => e.Depart_ID == departmentID);
         }
     }
 }
