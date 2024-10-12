@@ -96,7 +96,7 @@
 ------------------
 1- **Web API**.
 
-2- **Web API RESTFull**REST Full Repersentation State Transfer . 
+2- **Web API RESTFull**  Repersentation State Transfer . 
 
 3- Create Custom Filter 
 
@@ -111,10 +111,15 @@
 8- Test By Swagger .
 
 9- Web API Consuming :-
-    1-By HTML By Form
-    2-By C# Code 
-    3-By (MVC)
-    4-By Jquery Ajax
+
+                 1-By HTML By Form
+    
+                 2-By C# Code 
+    
+                 3-By (MVC)
+    
+                 4-By Jquery Ajax
+    
 
 10- Enable Cors 
 
